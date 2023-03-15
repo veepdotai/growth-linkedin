@@ -1,9 +1,11 @@
 const puppeteer =  require('puppeteer');
+const { waiting } = require("./waiting.js");
 
 /**
  * Automation of the LinkedIn authentication
  * @param {string} username - LinkedIn account username
  * @param {string} password - LinkedIn account password
+ * @return {Page} the browser page
  * */
 async function auth(username,password){
     //browser launching
@@ -12,8 +14,10 @@ async function auth(username,password){
     await page.goto('https://www.linkedin.com/');
     await page.setViewport({width: 1080, height: 1000});
 
-    //
+    //we add credentials in the form
+    await waiting();
     await page.type('#session_key', username);
+    await waiting();
     await page.type('#session_password', password);
     await page.keyboard.press('Enter');
     //await page.click('.sign-in-form__submit-btn--full-width');
