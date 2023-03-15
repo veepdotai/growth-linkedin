@@ -1,0 +1,23 @@
+const puppeteer =  require('puppeteer');
+
+/**
+ * Automation of the LinkedIn authentication
+ * @param {string} username - LinkedIn account username
+ * @param {string} password - LinkedIn account password
+ * */
+async function auth(username,password){
+    //browser launching
+    const browser = await puppeteer.launch({headless: false});
+    const page = await browser.newPage();
+    await page.goto('https://www.linkedin.com/');
+    await page.setViewport({width: 1080, height: 1000});
+
+    //
+    await page.type('#session_key', username);
+    await page.type('#session_password', password);
+    await page.keyboard.press('Enter');
+    //await page.click('.sign-in-form__submit-btn--full-width');
+    return page;
+}
+
+module.exports = { auth }
