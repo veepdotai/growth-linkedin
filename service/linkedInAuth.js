@@ -11,6 +11,7 @@ async function auth(username,password){
     //browser launching
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
+    await page.setExtraHTTPHeaders({'Accept-Language': 'en'});
     await page.goto('https://www.linkedin.com/');
     await page.setViewport({width: 1080, height: 1000});
 
@@ -19,8 +20,8 @@ async function auth(username,password){
     await page.type('#session_key', username);
     await waiting();
     await page.type('#session_password', password);
+    await waiting();
     await page.keyboard.press('Enter');
-    //await page.click('.sign-in-form__submit-btn--full-width');
     return page;
 }
 
