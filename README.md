@@ -17,5 +17,5 @@ you can put an url of yours in the url.json
 - user.json is here to set your LinkedIn account credentials
 - url.json is here to set the url of search peoples you want the bot to use
   ( need to be a LinkedIn search url focus on people )
-- Run the startConnect.js file to use the bot when the config files are ready
+- Run the startConnect.js file to use the bot when the config files are ready    
         `node startConnect.js`
