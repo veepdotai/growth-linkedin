@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 /**
  * function to create an url like 'https://www.linkedin.com/search/results/people/?serviceCategory=%5B"{services_code}"%2C"....."%5D&page=_'
  * to have access to a custom list of people
@@ -23,4 +21,9 @@ function createUrl(services,nPage){
     return url;
 }
 
-module.exports = { createUrl }
+function navigateUrl(url,nPage){
+    url += '&page='+nPage;
+    return url;
+}
+
+module.exports = { createUrl, navigateUrl }
