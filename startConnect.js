@@ -3,6 +3,7 @@ const { createUrl } = require('./service/serviceSearchUrl');
 const { linkConnection } = require("./service/linkConnection");
 const fs = require("fs");
 const { waiting } = require("./service/waiting");
+const {searchProfile} = require("./service/serviceSearch");
 
 const user = JSON.parse(fs.readFileSync('./config/user.json', 'utf8'));
 const service = JSON.parse(fs.readFileSync('./config/service.json', 'utf8'));
@@ -20,7 +21,8 @@ const linkedInServices = service.myServices;
         //number of person to connect to (10/page)
         for (let j = 1; j < 11; j++) {
             await waiting();
-            await linkConnection(page,createUrl(linkedInServices,i),j);
+            await searchProfile(page,createUrl(linkedInServices,i),j);
+            await linkConnection(page);
         }
     }
 
