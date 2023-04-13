@@ -1,10 +1,10 @@
-const { waiting } = require('./waiting.js');
+const { waiting } = require('../waiting.js');
 
 /**
  * Automation of the LinkedIn connection with someone else
- * @param {Page} page - the browser page from puppeteer
+ * @param {Page} page - the browser page from puppeteer, it must be the current profile you want to connect to
  * */
-async function linkConnection(page) {
+async function connection(page) {
 
     //waiting for the page to load
     await page.waitForSelector('#main');
@@ -16,11 +16,9 @@ async function linkConnection(page) {
     //searching for the connect button
     if(await page.$(ConnectButtonSelector) !== null) {
         //on the page
-        console.log("button connect : OK")
         await page.click(ConnectButtonSelector);
     } else {
         //or in a drop-down menu
-        console.log("no button connect : OK");
         await page.click(MoreButtonSelector);
         await waiting();
         //if not already connected
@@ -30,4 +28,4 @@ async function linkConnection(page) {
     }
 }
 
-module.exports = { linkConnection }
+module.exports = { connection }

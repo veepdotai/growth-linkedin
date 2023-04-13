@@ -12,5 +12,14 @@
     "design": "3387",
     "graphic_design": "207",
     "computer_network": "50370"
-  }
+  },
+  "myURLs": {
+    "peopleSearchingURL": "",
+    "peopleScrapingURL": ""
+  },
+  "myCredentials": {
+    "username": "*********@*****.com",
+    "password": "*********"
+  },
+  "peopleNumber": 0
 }

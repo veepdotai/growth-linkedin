@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "puppeteer": "^19.7.5"
+  },
+
+  "scripts": {
+    "start": "node peopleDataScraping.js --no-sandbox --disable-setuid-sandbox",
+    "dev": "nodemon peopleDataScraping.js"
   }
 }

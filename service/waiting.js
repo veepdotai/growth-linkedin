@@ -9,4 +9,9 @@ function waiting() {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-module.exports = { waiting }
+function waitingMore() {
+    const ms = Math.floor(Math.random() * (32147 - 15084)) + 15084;
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+module.exports = { waiting, waitingMore }

@@ -9,7 +9,7 @@ function createUrl(services,nPage){
     let url = 'https://www.linkedin.com/search/results/people/?serviceCategory=%5B';
     let i = 0;
 
-    //adding of all the services' code from the service.json file
+    //adding of all the services' code from the botconfig.json file
     for (const key in services) {
         url += '"' + services[key] + '"';
         if (i<Object.keys(services).length-1){
@@ -26,4 +26,12 @@ function navigateUrl(url,nPage){
     return url;
 }
 
-module.exports = { createUrl, navigateUrl }
+function UrlWithoutAlreadyConnected(url){
+    const regex = /&network=.{6,30}%5D/;
+    const replacement = '&network=%5B%22S%22%2C%22O%22%5D';
+    return url.replace(regex,replacement);
+}
+
+
+
+module.exports = { createUrl, navigateUrl, UrlWithoutAlreadyConnected }
