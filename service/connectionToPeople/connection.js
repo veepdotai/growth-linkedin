@@ -7,7 +7,7 @@ const { waiting } = require('../waiting.js');
 async function connection(page) {
 
     //waiting for the page to load
-    await page.waitForSelector('#main');
+    await page.waitForSelector('.search-global-typeahead__input');
     await waiting();
 
     const ConnectButtonSelector = 'div.pv-top-card-v2-ctas div.pvs-profile-actions button.pvs-profile-actions__action [type="connect"]';
