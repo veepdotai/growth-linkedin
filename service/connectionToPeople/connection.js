@@ -26,6 +26,10 @@ async function connection(page) {
             await page.click('.ph5 div.pvs-overflow-actions-dropdown__content div [type="connect"]');
         }
     }
+    await waiting();
+    if(await page.$('div.send-invite button:last-child') !== null){
+        await page.click('div.send-invite button:last-child');
+    }
 }
 
 module.exports = { connection }
