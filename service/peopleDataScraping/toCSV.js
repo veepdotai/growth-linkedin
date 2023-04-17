@@ -15,7 +15,7 @@ async function arrayToCSV(data,title) {
     }
     const csvString = csvData.join('\n');
 
-    fs.writeFile('../documents/profiles - '+title+'.csv', csvString, err => {
+    fs.writeFile('./documents/profiles - '+title+'.csv', csvString, err => {
         if (err) {
             console.error('Error at the file creation : ', err);
             return;

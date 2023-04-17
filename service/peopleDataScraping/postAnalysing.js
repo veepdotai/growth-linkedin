@@ -8,8 +8,7 @@ async function allPostPeopleToSee(page){
     const moreButton = '.comments-comments-list__load-more-comments-button';
     while(await page.$('.comments-comments-list__show-previous-container')){
         await page.waitForSelector(moreButton);
-        const button = await page.$(moreButton);
-        await page.click(button);
+        await page.click(moreButton);
         await waiting();
     }
 }
@@ -91,7 +90,7 @@ async function informationListing(page,url,nbPerson){
     const postTitle = 'h2.update-components-article__title';
     const contactDetailsLink = '#top-card-text-details-contact-info';
     const websites = '.ci-websites a';
-    const phone = '.ci-phone li span:firstchild';
+    const phone = '.ci-phone li span:first-child';
     const address = '.ci-address a';
     const email = '.ci-email a';
     const profileUrl = '.ci-vanity-url';
