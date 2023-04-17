@@ -12,11 +12,18 @@ async function peopleSelection(page, nPerson) {
     await page.waitForSelector(listSelector);
 
     //clicking on the specified person to access profile
-    await waiting();
     const personSelector = listSelector + ' li:nth-child('+nPerson+')';
     let button = await page.$(personSelector + ' button > span');
-    let value = (await page.evaluate(el => el.textContent, button)).trim();
-    if (value !=='En attente'){
+    let nom = await page.$(personSelector + ' span.entity-result__title-text > a');
+    let valueButton = '';
+    if (button !== null){
+        valueButton = (await page.evaluate(el => el.textContent, button)).trim();
+    }
+    let valueNom = (await page.evaluate(el => el.textContent, nom)).trim();
+
+    console.log(valueNom);
+    if (valueButton !=='En attente' && valueNom !=='Utilisateur LinkedIn'){
+        await waiting();
         await page.click(personSelector+' a');
         clicked = true;
     }

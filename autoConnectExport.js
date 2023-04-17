@@ -44,6 +44,7 @@ async function connect(){
             }
             i++;
         }
+        i=1;
         pageNumber++;
     }
     await browser.close();
