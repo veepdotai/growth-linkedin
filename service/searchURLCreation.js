@@ -17,19 +17,30 @@ function createUrl(services,nPage){
         }
         i++;
     }
-    url += '%5D&page='+nPage;
-    return url;
+    url += '%5D';
+    return navigateUrl(url,nPage);
 }
 
 function navigateUrl(url,nPage){
-    url += '&page='+nPage;
-    return url;
+    const regex = /&page=.[0-9]*/;
+    const replacement = '&page='+nPage;
+    if(regex.test(url)){
+        return url.replace(regex,replacement);
+    } else {
+        return url+'&page='+nPage;
+    }
+
 }
 
 function UrlWithoutAlreadyConnected(url){
     const regex = /&network=.{6,30}%5D/;
     const replacement = '&network=%5B%22S%22%2C%22O%22%5D';
-    return url.replace(regex,replacement);
+    if(regex.test(url)){
+        return url.replace(regex,replacement);
+    } else {
+        return url+'&network=%5B%22S%22%2C%22O%22%5D';
+    }
+
 }
 
 

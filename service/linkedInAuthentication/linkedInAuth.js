@@ -10,7 +10,8 @@ const { waiting } = require("../waiting.js");
 async function auth(username,password){
     //browser launching
     const browser = await puppeteer.launch({headless: false});
-    const page = await browser.newPage();
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
     await page.setExtraHTTPHeaders({'Accept-Language': 'en'});
     await page.setViewport({width: 1080, height: 1000});
     await page.goto('https://www.linkedin.com/');
@@ -26,7 +27,7 @@ async function auth(username,password){
     await page.keyboard.press('Enter');
     await page.waitForSelector('.search-global-typeahead__input');
     await waiting();
-    return page;
+    return [page,browser];
 }
 
 module.exports = { auth }

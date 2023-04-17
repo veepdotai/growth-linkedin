@@ -14,9 +14,10 @@ if(nbPerson < 0){
 }
 
 async function scraping(){
-    const page = await auth(username, password);
+    const [page,browser] = await auth(username, password);
     const [data, title] = await profilesList(page,url,nbPerson);
     await arrayToCSV(data,title);
+    await browser.close();
 }
 
 module.exports = { scraping }

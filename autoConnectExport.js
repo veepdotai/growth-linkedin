@@ -18,26 +18,35 @@ if(nbPerson < 0){
 }
 
 async function connect(){
-    const page = await auth(username,password);
-    let i = 0;
+    const [page,browser] = await auth(username,password);
+    let i = 1;
+    let nbAddedPerson = 0;
     let pageNumber = 1;
-    while(i < nbPerson ){
+    while(nbAddedPerson < nbPerson ){
         await waiting();
         if(url !== ""){
             // using the url from botconfig.json if indicated
             url = navigateUrl(url,pageNumber);
             url = UrlWithoutAlreadyConnected(url);
-            await peopleSelection(page,url,i+1);
         } else {
             //using the default url
             url = createUrl(linkedInServices,pageNumber);
             url = UrlWithoutAlreadyConnected(url);
-            await peopleSelection(page,createUrl(linkedInServices,pageNumber),i+1);
         }
-        await connection(page);
-        i++;
-        pageNumber = parseInt((i/10))+1;
+        await page.goto(url);
+        while(nbAddedPerson < nbPerson && i <= 10){
+            await waiting();
+            if (await peopleSelection(page,i)){
+                if (await connection(page)){
+                    nbAddedPerson++;
+                }
+                await page.goto(url);
+            }
+            i++;
+        }
+        pageNumber++;
     }
+    await browser.close();
 }
 
 module.exports = { connect }

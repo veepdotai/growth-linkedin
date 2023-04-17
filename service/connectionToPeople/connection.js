@@ -6,6 +6,7 @@ const { waiting } = require('../waiting.js');
  * */
 async function connection(page) {
 
+    let send = false;
     //waiting for the page to load
     await page.waitForSelector('.search-global-typeahead__input');
     await waiting();
@@ -29,7 +30,9 @@ async function connection(page) {
     await waiting();
     if(await page.$('div.send-invite button:last-child') !== null){
         await page.click('div.send-invite button:last-child');
+        send = true;
     }
+    return send;
 }
 
 module.exports = { connection }
