@@ -87,7 +87,7 @@ async function peopleListing(page,profilesSelector,namesSelector,nbPerson,url=''
  * @return an array of objects and a string - contacts details and the post title or a default title
  */
 async function informationListing(page,url,nbPerson){
-    const postTitle = 'h2.update-components-article__title';
+    const postTitleSelector = 'h2.update-components-article__title';
     const contactDetailsLink = '#top-card-text-details-contact-info';
     const websites = '.ci-websites a';
     const phone = '.ci-phone li span:first-child';
@@ -110,7 +110,8 @@ async function informationListing(page,url,nbPerson){
     }
 
     let title = 'default filename';
-    if(await page.$(postTitle)){
+    const postTitle = await page.$(postTitleSelector)
+    if(postTitle){
         title = await postTitle.evaluate(elem => elem.innerText);
     }
 
@@ -123,7 +124,9 @@ async function informationListing(page,url,nbPerson){
             'phone': '',
             'address': '',
             'email': '',
-            'connectionDate': ''
+            'connectionDate': '',
+            'info': '',
+            'experiences': ''
         };
         result.push(profileInfo);
     }
@@ -131,6 +134,27 @@ async function informationListing(page,url,nbPerson){
         await page.goto(result[i].profileUrl);
         await waiting();
         await page.waitForSelector('.search-global-typeahead__input');
+
+        await waiting();
+        const experienceUrl = result[i].profileUrl + 'details/experience'
+        await page.goto(experienceUrl);
+        await waitingMore();
+        await page.waitForSelector('.search-global-typeahead__input');
+
+        const experienceElement = await page.$('main span:not(.visually-hidden)');
+        if (experienceElement) {
+            result[i].experiences = await experienceElement.evaluate(elem => elem.innerText);
+        }
+
+        await page.goto(result[i].profileUrl);
+        await waiting();
+        await page.waitForSelector('.search-global-typeahead__input');
+
+        const info = await page.$('div.break-words');
+        if(info){
+            result[i].info = await info.evaluate(elem => elem.innerText);
+        }
+
         const contactDetailsElement = await page.$(contactDetailsLink);
         if (contactDetailsElement) {
             await contactDetailsElement.click();
